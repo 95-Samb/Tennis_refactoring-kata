@@ -9,11 +9,7 @@ class TennisGame1
   end
 
   def won_point(playerName)
-    if playerName == "player1"
-      @p1points += 1
-    else
-      @p2points += 1
-    end
+    (playerName == "player1" ? @p1points +=1 : @p2points +=1)
   end
 
   def score
@@ -25,8 +21,7 @@ class TennisGame1
       same_score_hash = score_hash.reject{|k,v| k == 3}.transform_values{|v| v += "-All"}
       result = same_score_hash.fetch(@p1points, "Deuce")
     elsif (@p1points>=4 or @p2points>=4)
-      minusResult = @p1points-@p2points
-      if (minusResult.abs == 1)
+      if ((@p1points-@p2points).abs == 1)
         result ="Advantage #{@p1points>@p2points ? "player1" : "player2"}"
       else
         result ="Win for #{@p1points>@p2points ? "player1" : "player2"}"
