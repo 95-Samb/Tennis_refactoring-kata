@@ -5,9 +5,10 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   1.10.6
+   1.17.3
