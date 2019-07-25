@@ -11,27 +11,28 @@ class TennisGame1
   end
 
   def score
-    score_hash = { 0 => 'Love',
-                   1 => 'Fifteen',
-                   2 => 'Thirty',
-                   3 => 'Forty' }
+    score_hash = { 0 => 'Love', 1 => 'Fifteen',
+                   2 => 'Thirty', 3 => 'Forty' }
     if @p1points == @p2points
-      same_score_hash = score_hash.reject { |k, _v| k == 3 }.transform_values { |v| v + '-All' }
-      result = same_score_hash.fetch(@p1points, 'Deuce')
+      score_all_hash(score_hash).fetch(@p1points, 'Deuce')
     elsif (@p1points >= 4) || (@p2points >= 4)
-      result = deuce_advantage(@p1points, @p2points)
+      deuce_advantage_or_win?(@p1points, @p2points)
     else
-      result = (score_hash[@p1points] + '-' + score_hash[@p2points])
+      (score_hash[@p1points] + '-' + score_hash[@p2points])
     end
-    result
   end
 
-  def deuce_advantage(p1points, p2points)
+  def deuce_advantage_or_win?(p1points, p2points)
     if (p1points - p2points).abs == 1
       "Advantage #{p1points > p2points ? 'player1' : 'player2'}"
     else
       "Win for #{p1points > p2points ? 'player1' : 'player2'}"
     end
+  end
+
+  def score_all_hash(score_hash)
+    same_score_hash = score_hash.reject { |k, _v| k == 3 }
+    same_score_hash.transform_values { |v| v + '-All' }
   end
 end
 
